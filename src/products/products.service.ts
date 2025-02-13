@@ -1,3 +1,4 @@
+// src/products/products.service.ts
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 
@@ -11,9 +12,10 @@ export class ProductsService {
    * @param limit The number of products per page.
    * @returns A promise that resolves to an array of products.
    */
-  async getProducts(page?: number, limit?: number): Promise<ReturnType<PrismaService['product']['findMany']>> {
+  async getProducts(page: number = 1, limit: number = 10) {
     return this.prisma.product.findMany({
-      ...(page && limit ? { skip: (page - 1) * limit, take: limit } : {}),
+      skip: (page - 1) * limit, // Skip products based on the page
+      take: limit, // Limit the number of products
     });
   }
 }

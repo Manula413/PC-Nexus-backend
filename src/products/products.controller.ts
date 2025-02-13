@@ -1,5 +1,25 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { IsInt, Min,IsOptional  } from 'class-validator';
+import { Transform } from 'class-transformer';
+
+class PaginationDto {
+  @IsOptional()
+  @IsInt()
+  @Transform(({ value }) => {
+    const parsedValue = parseInt(value, 10);
+    return parsedValue > 0 ? parsedValue : 1; // Default to 1 if invalid
+  })
+  page?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Transform(({ value }) => {
+    const parsedValue = parseInt(value, 10);
+    return parsedValue > 0 ? parsedValue : 10; // Default to 10 if invalid
+  })
+  limit?: number;
+}
 
 @Controller('products')
 export class ProductsController {
@@ -7,11 +27,8 @@ export class ProductsController {
 
   @Get()
   async getProducts(
-    @Query('page') page: string = '1', // Default to page 1 if no query param is provided
-    @Query('limit') limit: string = '10', // Default to 10 products per page
+    @Query() pagination: PaginationDto, // Automatically validated and transformed
   ) {
-    const pageNum = parseInt(page);
-    const limitNum = parseInt(limit);
-    return this.productsService.getProducts( );
+    return this.productsService.getProducts(pagination.page, pagination.limit);
   }
 }

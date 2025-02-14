@@ -38,15 +38,11 @@ export class ProductsService {
    * Updates an existing product by ID.
    */
   async updateProduct(id: number, data: Partial<Product>): Promise<Product> {
-    try {
-      return await this.prisma.product.update({
-        where: { id },
-        data,
-      });
-    } catch (error) {
-      throw new NotFoundException(`Failed to update product with ID ${id}`);
-    }
+    const product = await this.prisma.product.findUnique({ where: { id } });
+    if (!product) throw new NotFoundException(`Product with ID ${id} not found`);
+    return this.prisma.product.update({ where: { id }, data });
   }
+
 
   /**
    * Deletes a product by ID.

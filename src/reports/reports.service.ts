@@ -14,13 +14,13 @@ export class ReportsService {
   }
 
   
-  @Cron(CronExpression.EVERY_MINUTE) // Every 5 minutes
+  @Cron('*/10 * * * *') 
 async fetchAndLogProductData() {
   console.log('Fetching product data...');
 
-  // Fetch product data (e.g., all products or a subset like top 5 most expensive products)
+  
   const products = await this.prisma.product.findMany({
-    take: 5, // Limit to the first 5 products for simplicity
+    take: 5, 
     select: {
       id: true,
       name: true,
@@ -29,7 +29,6 @@ async fetchAndLogProductData() {
     },
   });
 
-  // Log the fetched product data
   console.log('Fetched Products:', products);
 }
 

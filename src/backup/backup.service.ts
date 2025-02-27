@@ -9,7 +9,7 @@ export class BackupService {
 
     constructor() { }
 
-    @Cron(CronExpression.EVERY_MINUTE)
+    @Cron('*/5 * * * *')
     handleCron() {
         console.log('Starting SQLite database backup...');
         this.backupDatabase();

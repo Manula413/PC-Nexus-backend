@@ -14,18 +14,16 @@ export class ReportsService {
   }
 
   
-  @Cron('*/10 * * * *') 
+  @Cron('*/5 * * * *') 
 async fetchAndLogProductData() {
   console.log('Fetching product data...');
 
   
   const products = await this.prisma.product.findMany({
-    take: 5, 
+    take: 1, 
     select: {
       id: true,
       name: true,
-      price: true,
-      category: true,
     },
   });
 

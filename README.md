@@ -22,6 +22,21 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+  ## Features Implemented
+
+### Backend (NestJS)
+
+- Created a **Get Products API**.
+- Moved all product-related functionality from Prisma (previously used in Remix) to NestJS.
+- Implemented full **CRUD operations** for products.
+- Integrated the backend API with a **Remix frontend**.
+- Added **cron jobs**, such as **daily database backups**.
+
+### Frontend (Remix)
+
+- Integrated all CRUD operations from the NestJS backend.
+- Fetches products and supports pagination through the NestJS API.
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.

@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+uploadPrducts.js
+products.json
+
 # Logs
 logs
 *.log
